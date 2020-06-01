@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node ./node_modules/xt-react-cli/lib/scripts/start.js",
+    "dev": "node ./node_modules/xt-react-cli/lib/scripts/start.js --port 3002",
     "build": "node build.js",
     "build-dev": "node build.js --env dev",
     "build-test": "node build.js --env test",
@@ -17,5 +17,9 @@
     "rimraf": "^3.0.2",
     "xt-react-cli": "^1.0.33",
     "yargs": "^15.3.1"
+  },
+  "dependencies": {
+    "path-to-regexp": "^6.1.0",
+    "universal-router": "^9.0.1"
   }
 }

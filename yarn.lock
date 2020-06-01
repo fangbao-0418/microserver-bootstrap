@@ -4861,6 +4861,11 @@ path-to-regexp@0.1.7:
   resolved "http://192.168.20.8:802/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
   integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
 
+path-to-regexp@^6.1.0:
+  version "6.1.0"
+  resolved "http://192.168.20.8:802/path-to-regexp/-/path-to-regexp-6.1.0.tgz#0b18f88b7a0ce0bfae6a25990c909ab86f512427"
+  integrity sha1-Cxj4i3oM4L+uaiWZDJCauG9RJCc=
+
 path-type@^2.0.0:
   version "2.0.0"
   resolved "http://192.168.20.8:802/path-type/-/path-type-2.0.0.tgz#f012ccb8415b7096fc2daa1054c3d72389594c73"
@@ -6425,6 +6430,13 @@ unique-slug@^2.0.0:
   integrity sha512-zoWr9ObaxALD3DOPfjPSqxt4fnZiWblxHIgeWqW8x7UqDzEtHEQLzji2cuJYQFCU6KmoJikOYAZlrTHHebjx2w==
   dependencies:
     imurmurhash "^0.1.4"
+
+universal-router@^9.0.1:
+  version "9.0.1"
+  resolved "http://192.168.20.8:802/universal-router/-/universal-router-9.0.1.tgz#1f4cdd51a45f9e989e40a556a71a2c134552afea"
+  integrity sha1-H0zdUaRfnpieQKVWpxosE0VSr+o=
+  dependencies:
+    path-to-regexp "^6.1.0"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"

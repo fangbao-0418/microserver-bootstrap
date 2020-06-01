@@ -1,8 +1,4 @@
-import React from 'react'
-import { render } from 'react-dom'
-import '@/style/common.styl'
-import Home from '@/pages/home'
-render(
-  <Home />,
-  document.getElementById('app')
-)
+import bootstrap from '@/packages/bootstrap'
+
+const app = bootstrap()
+app.mount(document.getElementById('app'))
