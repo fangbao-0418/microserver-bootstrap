@@ -1,9 +1,3 @@
-<!--
- * @Date: 2020-05-12 10:40:32
- * @LastEditors: fangbao
- * @LastEditTime: 2020-05-12 11:18:52
- * @FilePath: /eslint-plugin-xt-react/Users/fangbao/Documents/xituan/xt-react-template/src/index.html
- -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +8,44 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Cache-control" content="no-cache">
   <meta http-equiv="Cache" content="no-cache">
-  <meta
+  <!-- <meta
     name="publish-time"
     content="<%= htmlWebpackPlugin.options.publishTime %>"
-  />
+  /> -->
+  <link rel="stylesheet" href="https://cdn.hzxituan.com/crm_npm/antd/3.26.8/dist/antd.min.css">
+  <script src="https://cdn.hzxituan.com/crm_npm/react/16.8.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/react-dom/16.8.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/moment/2.24.0/min/moment.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/moment/2.24.0/min/moment-with-locales.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/immutable/3.8.2/dist/immutable.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/antd/3.26.8/dist/antd.min.js"></script>
+  <script src="https://cdn.hzxituan.com/crm_npm/ali-oss/6.4.0/dist/aliyun-oss-sdk.min.js"></script>
+  <script src="https://cdn.hzxituan.com/npm/moon/v1.0.3/moon.js"></script>
+  <script>
+    antd.Message=antd.message
+  </script>
+  <script>
+    const Observer = (function () {
+      const routes = []
+      const listeners = []
+      return {
+        subscribe: function (fn) {
+          listeners.push(fn)
+        },
+        addRoute: function (routeInfo) {
+          routes.push(routeInfo)
+          this.trigger()
+        },
+        trigger: function () {
+          console.log('trigger')
+          console.log(listeners, 'listeners')
+          listeners.map((fn) => {
+            fn && fn()
+          })
+        }
+      }
+    })()
+  </script>
 </head>
 <body>
   <div id="app"></div>

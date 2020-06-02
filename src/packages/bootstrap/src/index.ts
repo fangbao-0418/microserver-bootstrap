@@ -1,39 +1,18 @@
 /*
  * @Date: 2020-06-01 17:44:07
  * @LastEditors: fangbao
- * @LastEditTime: 2020-06-01 20:01:19
+ * @LastEditTime: 2020-06-02 16:21:54
  * @FilePath: /eslint-plugin-xt-react/Users/fangbao/Documents/xituan/xt-crm-microservice/server/src/packages/bootstrap/src/index.ts
  */
 
 import UniversalRouter, { Routes } from 'universal-router'
 import { loadjs, loadcss } from './utils/helper'
-
-const routes: Routes = [
-  {
-    path: '/',
-    action: () => {
-      initBody()
-      loadcss('https://test1-supplier.hzxituan.com/css/app.2224c453.css')
-      loadjs('https://test1-wms.hzxituan.com/js/common-14d648473a7b5446c6a2.bundle.js')
-      loadjs('https://test1-wms.hzxituan.com/js/app-14d648473a7b5446c6a2.bundle.js')
-      // return ''
-    },
-    children: [
-      {
-        path: '/#/purchase/(.*)',
-        action: (context) => {
-          console.log('2')
-          // document.body.innerHTML = 'posts'
-          return ''
-        }
-      }
-    ]
-  }
-]
+import { InjectConfigProps } from './interface'
+let injectConfig: InjectConfigProps[] = []
 
 function initBody () {
   document.body.innerHTML = `
-    <div id="app"></div>
+    <div id="root"></div>
     <div id="loading" class="loading" style="display: none;">
       <main class="wrapper">
         <div class="loading-wrapper">
@@ -52,12 +31,38 @@ function initBody () {
   `
 }
 
+function initRoutes () {
+  const routes: Routes = []
+  injectConfig.forEach((item) => {
+    routes.push({
+      path: `${item.path}(.*)`,
+      action: (context) => {
+        if (item.serverName === 'common') {
+          initBody()
+        }
+        const js = item.js || []
+        const css = item.css || []
+        css.forEach((attr) => {
+          loadcss(attr.src, attr.inject)
+        })
+        js.forEach((attr) => {
+          loadjs(attr.src, attr.inject)
+        })
+        // console.log('action')
+        // return ''
+      }
+    })
+  })
+  console.log(routes, 'routes')
+  return routes
+}
+
 function mount (el: HTMLElement) {
+  const routes = initRoutes()
   const router = new UniversalRouter(routes)
   const href = location.href
   const origin = location.origin
   const path = href.replace(new RegExp('^' + origin), '')
-  // const path = '/order'
   console.log(path, 'path')
   router.resolve(path)
     .then(html => {
@@ -65,7 +70,8 @@ function mount (el: HTMLElement) {
     })
 }
 
-function bootstrap () {
+function bootstrap (config: InjectConfigProps[]) {
+  injectConfig = config
   const app = {
     mount
   }
