@@ -1,35 +1,18 @@
 /*
  * @Date: 2020-06-01 17:44:07
  * @LastEditors: fangbao
- * @LastEditTime: 2020-06-02 16:21:54
- * @FilePath: /eslint-plugin-xt-react/Users/fangbao/Documents/xituan/xt-crm-microservice/server/src/packages/bootstrap/src/index.ts
+ * @LastEditTime: 2020-06-04 15:37:49
+ * @FilePath: /eslint-plugin-xt-react/Users/fangbao/Documents/xituan/xt-crm-microservice/entry/src/packages/bootstrap/src/index.ts
  */
 
 import UniversalRouter, { Routes } from 'universal-router'
+import { createHashHistory } from 'history'
 import { loadjs, loadcss } from './utils/helper'
 import { InjectConfigProps } from './interface'
+const history = createHashHistory()
 let injectConfig: InjectConfigProps[] = []
-
-function initBody () {
-  document.body.innerHTML = `
-    <div id="root"></div>
-    <div id="loading" class="loading" style="display: none;">
-      <main class="wrapper">
-        <div class="loading-wrapper">
-          <div class="ant-spin ant-spin-spinning ant-spin-show-text">
-            <span class="ant-spin-dot ant-spin-dot-spin">
-              <i class="ant-spin-dot-item"></i>
-              <i class="ant-spin-dot-item"></i>
-              <i class="ant-spin-dot-item"></i>
-              <i class="ant-spin-dot-item"></i>
-            </span>
-            <div class="ant-spin-text">加载中...</div>
-          </div>
-        </div>
-      </main>
-    </div>
-  `
-}
+/** 加载过的server */
+const loadedServer: string[] = []
 
 function initRoutes () {
   const routes: Routes = []
@@ -37,9 +20,6 @@ function initRoutes () {
     routes.push({
       path: `${item.path}(.*)`,
       action: (context) => {
-        if (item.serverName === 'common') {
-          initBody()
-        }
         const js = item.js || []
         const css = item.css || []
         css.forEach((attr) => {
@@ -48,32 +28,47 @@ function initRoutes () {
         js.forEach((attr) => {
           loadjs(attr.src, attr.inject)
         })
-        // console.log('action')
-        // return ''
       }
     })
   })
-  console.log(routes, 'routes')
   return routes
 }
 
-function mount (el: HTMLElement) {
-  const routes = initRoutes()
-  const router = new UniversalRouter(routes)
-  const href = location.href
-  const origin = location.origin
-  const path = href.replace(new RegExp('^' + origin), '')
-  console.log(path, 'path')
-  router.resolve(path)
+function routerResolve (router: UniversalRouter, serverPath: string) {
+  const isloaded = !!loadedServer.find((path) => path === serverPath)
+  console.log(isloaded, loadedServer, 'isloaded')
+  if (isloaded) {
+    return
+  }
+  loadedServer.push(serverPath)
+  router.resolve(serverPath)
     .then(html => {
       console.log('loaded')
     })
 }
 
+function initRouterResolve (router: UniversalRouter) {
+  const location = history.location
+  const pathname = location.pathname
+  const serverPath = pathname.replace(/^(\/\w+)\/?.*$/, '$1')
+  routerResolve(router, serverPath)
+}
+
+function start () {
+  const routes = initRoutes()
+  const router = new UniversalRouter(routes)
+  const unlisten = history.listen((location, action) => {
+    const pathname = location.pathname
+    const serverPath = pathname.replace(/^(\/\w+)\/?.*$/, '$1')
+    routerResolve(router, serverPath)
+  })
+  initRouterResolve(router)
+}
+
 function bootstrap (config: InjectConfigProps[]) {
   injectConfig = config
   const app = {
-    mount
+    start
   }
   return app
 }

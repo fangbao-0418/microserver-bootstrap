@@ -19,6 +19,8 @@
     "yargs": "^15.3.1"
   },
   "dependencies": {
+    "@types/history": "^4.7.6",
+    "history": "^4.10.1",
     "path-to-regexp": "^6.1.0",
     "universal-router": "^9.0.1"
   }
