@@ -20,30 +20,36 @@ function initRoutes () {
     routes.push({
       path: `${item.path}(.*)`,
       action: (context) => {
-        const js = item.js || []
-        const css = item.css || []
-        css.forEach((attr) => {
-          loadcss(attr.src, attr.inject)
-        })
-        js.forEach((attr) => {
-          loadjs(attr.src, attr.inject)
-        })
+        console.log(item, loadedServer, 'loadedServer')
+        const isloaded = !!loadedServer.find((serverName) => serverName === item.serverName)
+        if (!isloaded) {
+          loadedServer.push(item.serverName)
+          const js = item.js || []
+          const css = item.css || []
+          css.forEach((attr) => {
+            loadcss(attr.src, attr.inject)
+          })
+          js.forEach((attr) => {
+            loadjs(attr.src, attr.inject)
+          })
+        }
+        console.log(context, item, 'action')
+        if (item.serverName !== 'common') {
+          return ''
+        }
+        // return ''
       }
     })
   })
+  console.log(routes, 'routes')
   return routes
 }
 
 function routerResolve (router: UniversalRouter, serverPath: string) {
-  const isloaded = !!loadedServer.find((path) => path === serverPath)
-  console.log(isloaded, loadedServer, 'isloaded')
-  if (isloaded) {
-    return
-  }
-  loadedServer.push(serverPath)
   router.resolve(serverPath)
     .then(html => {
-      console.log('loaded')
+      console.log(html, 'loaded')
+      // document.body.innerHTML = html
     })
 }
 
@@ -56,10 +62,12 @@ function initRouterResolve (router: UniversalRouter) {
 
 function start () {
   const routes = initRoutes()
+  // console.log(routes, 'routes')
   const router = new UniversalRouter(routes)
   const unlisten = history.listen((location, action) => {
     const pathname = location.pathname
     const serverPath = pathname.replace(/^(\/\w+)\/?.*$/, '$1')
+    console.log(pathname, 'pathname')
     routerResolve(router, serverPath)
   })
   initRouterResolve(router)

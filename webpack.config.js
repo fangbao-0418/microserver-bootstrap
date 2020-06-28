@@ -34,5 +34,9 @@ module.exports = function (config, env) {
       // encoding: false
     }
   })
+  config.resolve.modules = [
+    path.resolve(__dirname, 'node_modules'),
+    path.resolve(__dirname, 'src/packages/bootstrap', 'node_modules')
+  ]
   return config
 }

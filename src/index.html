@@ -19,8 +19,6 @@
     content="<%= htmlWebpackPlugin.options.publishTime %>"
   /> -->
   <link rel="stylesheet" href="https://cdn.hzxituan.com/crm_npm/antd/3.26.8/dist/antd.min.css" />
-  <link rel="stylesheet" href="https://test-crmadmin.hzxituan.com/static/css/vendors.b09197b0.chunk.css" />
-  <link rel="stylesheet" href="https://test-crmadmin.hzxituan.com/static/css/main.775c08f5.chunk.css" />
   <script src="https://cdn.hzxituan.com/crm_npm/react/16.8.0/umd/react.production.min.js"></script>
   <script src="https://cdn.hzxituan.com/crm_npm/react-dom/16.8.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.hzxituan.com/crm_npm/moment/2.24.0/min/moment.min.js"></script>
@@ -45,8 +43,6 @@
           this.trigger()
         },
         trigger: function () {
-          console.log('trigger')
-          console.log(listeners, 'listeners')
           listeners.map((fn) => {
             fn && fn()
           })
@@ -75,8 +71,8 @@
       </div>
     </main>
   </div>
-  <script src="https://test-crmadmin.hzxituan.com/static/js/runtime.e701d7b3.js"></script>
+  <!-- <script src="https://test-crmadmin.hzxituan.com/static/js/runtime.e701d7b3.js"></script>
   <script src="https://test-crmadmin.hzxituan.com/static/js/vendors.6740da20.chunk.js"></script>
-  <script src="https://test-crmadmin.hzxituan.com/static/js/main.414b2e4b.chunk.js"></script>
+  <script src="https://test-crmadmin.hzxituan.com/static/js/main.414b2e4b.chunk.js"></script> -->
 </body>
 </html>

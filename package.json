@@ -15,6 +15,7 @@
   "devDependencies": {
     "eslint-plugin-xt-react": "^1.0.8",
     "rimraf": "^3.0.2",
+    "typescript": "^3.9.5",
     "xt-react-cli": "^1.0.33",
     "yargs": "^15.3.1"
   },
