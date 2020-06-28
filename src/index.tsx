@@ -1,5 +1,5 @@
 import React from 'react'
-import bootstrap from '@/packages/bootstrap'
+import bootstrap from '@xt-micro-service/bootstrap'
 import injectConfigs from './injectConfig'
 import(
   /* webpackChunkName: "expose" */

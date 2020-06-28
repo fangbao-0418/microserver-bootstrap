@@ -1,4 +1,5 @@
 import React from 'react'
+import { Observer } from '@xt-micro-service/bootstrap'
 class Main extends React.Component {
   public render () {
     return (
@@ -13,7 +14,5 @@ Observer.addRoute({
   path: '/order',
   component: Main
 })
-
-console.log('0000000000000000000000')
-console.log(Observer.getRoutes(), 'routes')
+console.log(Observer.getRoutes(), 'Observer add route')
 export default Main

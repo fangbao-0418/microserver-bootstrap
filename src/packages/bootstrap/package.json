@@ -1,10 +1,22 @@
 {
-  "name": "bootstrap",
+  "name": "@xt-micro-service/bootstrap",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "license": "MIT",
+  "scripts": {
+    "dist": ""
+  },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "history": "4.10.1",
     "universal-router": "^9.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "rimraf": "^3.0.2"
   }
 }

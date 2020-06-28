@@ -5,7 +5,7 @@
  * @FilePath: /eslint-plugin-xt-react/Users/fangbao/Documents/xituan/xt-crm-microservice/entry/src/injectConfig.ts
  */
 
-import { InjectConfigProps } from '@/packages/bootstrap/src/interface'
+import { InjectConfigProps } from '@xt-micro-service/bootstrap/lib/interface'
 
 const configs: InjectConfigProps[] = [
   // {

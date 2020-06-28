@@ -9,6 +9,7 @@ import UniversalRouter, { Routes } from 'universal-router'
 import { createHashHistory } from 'history'
 import { loadjs, loadcss } from './utils/helper'
 import { InjectConfigProps } from './interface'
+export { default as Observer } from './utils/Observer'
 const history = createHashHistory()
 let injectConfig: InjectConfigProps[] = []
 /** 加载过的server */
